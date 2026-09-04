@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AETHER // DIGITAL OBSERVATORY</title>
+    <meta name="description" content="A futuristic digital observation dashboard.">
+    <!-- Fonts: Inter for UI, JetBrains Mono for Console/Data -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Landscape Warning (Orientation Lock) -->
+    <div id="landscape-warning">
+        <div class="warning-icon">⟳</div>
+        <h2>ORIENTATION LOCK ACTIVE</h2>
+        <p>AETHER interface is heavily data-driven and requires <strong>Landscape Mode</strong> for optimal observation.</p>
+        <p class="text-cyan" style="margin-top: 10px; font-size: 12px;">Please rotate your device.</p>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-atmosphere"></div>
+    <div class="cursor-glow"></div>
+
+    <!-- Boot Screen -->
+    <div id="boot-screen" class="active">
+        <div class="boot-content">
+            <h1 class="boot-logo">AETHER SYSTEM</h1>
+            <div class="boot-terminal" id="boot-text">
+                <!-- Text populated by JS -->
+            </div>
+            <div class="boot-progress-bar">
+                <div class="boot-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="hidden">
+        
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="glass-panel skeu-edge" aria-label="Main Navigation">
+            <div class="sidebar-header">
+                <h2>AETHER</h2>
+                <button class="mobile-toggle" aria-label="Toggle Menu" id="menu-toggle">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#overview" class="active"><span class="icon">◉</span> Overview</a></li>
+                <li><a href="#explorer"><span class="icon">◈</span> Explorer</a></li>
+                <li><a href="#observations"><span class="icon">⌁</span> Observations</a></li>
+                <li><a href="#analytics"><span class="icon">▣</span> Analytics</a></li>
+                <li><a href="#console"><span class="icon">⌘</span> Console</a></li>
+                <li><a href="#about"><span class="icon">◎</span> About</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <div class="dot pulsing"></div>
+                    <span>CORE ONLINE</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            
+            <!-- Top Bar -->
+            <header id="top-bar" class="glass-panel drop-shadow">
+                <div class="top-left">
+                    <span class="system-tag">AETHER SYSTEM // v2.4.1</span>
+                </div>
+                <div class="top-right">
+                    <div class="system-status">
+                        <span class="status-dot"></span> SYSTEM NOMINAL
+                    </div>
+                    <div class="clock font-mono" id="realtime-clock">00:00:00</div>
+                    <button class="icon-btn skeu-btn" id="notif-btn" aria-label="Notifications">
+                        <span class="bell-icon">🔔</span>
+                    </button>
+                    <button class="icon-btn skeu-btn profile-btn" id="profile-btn" aria-label="User Profile">
+                        <div class="avatar"></div>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Dashboard -->
+            <div class="dashboard-scroll-area">
+                
+                <!-- Hero Section -->
+                <section id="hero" class="glass-panel">
+                    <div class="hero-content">
+                        <h1 class="glitch-text" data-text="DIGITAL OBSERVATORY">DIGITAL OBSERVATORY</h1>
+                        <h2>Observe. Analyze. Understand.</h2>
+                        <p>AETHER is an experimental interface for exploring digital environments, systems, and deep data structures.</p>
+                        <div class="hero-actions">
+                            <button class="btn-primary skeu-btn magnetic-btn">ENTER OBSERVATION</button>
+                            <button class="btn-secondary skeu-btn magnetic-btn">EXPLORE SYSTEM</button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hologram-orb">
+                            <div class="orb-ring ring-1"></div>
+                            <div class="orb-ring ring-2"></div>
+                            <div class="orb-ring ring-3"></div>
+                            <div class="orb-core"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Status Cards -->
+                <section id="status-cards" class="grid-4">
+                    <div class="glass-card status-card">
+                        <h3 class="card-title">SYSTEM STATUS</h3>
+                        <div class="card-value font-mono"><span class="counter" data-target="98.7">0</span>%</div>
+                        <div class="card-footer text-cyan">NOMINAL</div>
+                    </div>
+                    <div class="glass-card status-card">
+                        <h3 class="card-title">OBSERVATIONS</h3>
+                        <div class="card-value font-mono"><span class="counter" data-target="1284">0</span></div>
+                        <div class="card-footer text-violet">ACTIVE</div>
+                    </div>
+                    <div class="glass-card status-card">
+                        <h3 class="card-title">NETWORK</h3>
+                        <div class="card-value font-mono"><span class="counter" data-target="99.2">0</span>%</div>
+                        <div class="card-footer text-cyan">STABLE</div>
+                    </div>
+                    <div class="glass-card status-card">
+                        <h3 class="card-title">CORE TEMP</h3>
+                        <div class="card-value font-mono"><span class="counter" data-target="42.8">0</span>°</div>
+                        <div class="card-footer text-cyan">OPTIMAL</div>
+                    </div>
+                </section>
+
+                <div class="layout-split">
+                    <!-- Explorer / Observations -->
+                    <section id="explorer">
+                        <h2 class="section-title">◈ RECENT OBSERVATIONS</h2>
+                        <div class="explorer-grid">
+                            <div class="glass-card obs-card skeu-inset" tabindex="0">
+                                <div class="obs-header">OBSERVATION 001</div>
+                                <h3 class="obs-title">NEURAL FIELD</h3>
+                                <div class="obs-meta font-mono">FRQ: 14.2 GHz <br> STB: 88%</div>
+                                <div class="obs-status"></div>
+                            </div>
+                            <div class="glass-card obs-card skeu-inset" tabindex="0">
+                                <div class="obs-header">OBSERVATION 002</div>
+                                <h3 class="obs-title">ATMOSPHERIC DATA</h3>
+                                <div class="obs-meta font-mono">FRQ: 8.4 GHz <br> STB: 94%</div>
+                                <div class="obs-status active"></div>
+                            </div>
+                            <div class="glass-card obs-card skeu-inset" tabindex="0">
+                                <div class="obs-header text-violet">OBSERVATION 003</div>
+                                <h3 class="obs-title">UNKNOWN SIGNAL</h3>
+                                <div class="obs-meta font-mono">FRQ: ??? GHz <br> STB: 21%</div>
+                                <div class="obs-status warning"></div>
+                            </div>
+                            <div class="glass-card obs-card skeu-inset" tabindex="0">
+                                <div class="obs-header">OBSERVATION 004</div>
+                                <h3 class="obs-title">DEEP SPACE OBJ</h3>
+                                <div class="obs-meta font-mono">FRQ: 1.2 GHz <br> STB: 99%</div>
+                                <div class="obs-status"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Live Observation Panel -->
+                    <section id="live-panel" class="glass-panel skeu-panel">
+                        <div class="panel-header skeu-edge">
+                            <h2 class="section-title">⌁ LIVE INSTRUMENT</h2>
+                            <div class="physical-switch">
+                                <input type="checkbox" id="power-switch" checked>
+                                <label for="power-switch" class="switch-body"></label>
+                            </div>
+                        </div>
+                        <div class="instrument-display skeu-screen">
+                            <canvas id="signal-canvas"></canvas>
+                            <div class="screen-overlay"></div>
+                        </div>
+                        <div class="instrument-metrics grid-2">
+                            <div class="metric font-mono">
+                                <span class="label">FREQUENCY</span>
+                                <span class="value" id="live-freq">742.18 Hz</span>
+                            </div>
+                            <div class="metric font-mono">
+                                <span class="label">STABILITY</span>
+                                <span class="value">94.2%</span>
+                            </div>
+                            <div class="metric font-mono full-width">
+                                <span class="label">SIGNAL STRENGTH</span>
+                                <div class="progress-bar-digital">
+                                    <div class="fill" style="width: 82%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="layout-split layout-reverse">
+                    <!-- System Console -->
+                    <section id="console-section" class="glass-panel skeu-panel">
+                        <h2 class="section-title">⌘ SYSTEM CONSOLE</h2>
+                        <div class="console-wrapper skeu-screen">
+                            <div id="console-output" class="font-mono">
+                                <div class="line sys-msg">AETHER CONSOLE v2.4.1</div>
+                                <div class="line sys-msg">Type 'help' for available commands.</div>
+                            </div>
+                            <div class="console-input-line font-mono">
+                                <span class="prompt">&gt;</span>
+                                <input type="text" id="console-input" autocomplete="off" spellcheck="false">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Analytics Mini -->
+                    <section id="analytics" class="glass-panel">
+                         <h2 class="section-title">▣ CORE ANALYTICS</h2>
+                         <div class="analytics-charts">
+                             <div class="chart-container skeu-inset">
+                                 <!-- CSS simulated bar chart -->
+                                 <div class="css-chart">
+                                     <div class="bar" style="height: 40%"></div>
+                                     <div class="bar" style="height: 70%"></div>
+                                     <div class="bar" style="height: 55%"></div>
+                                     <div class="bar" style="height: 90%"></div>
+                                     <div class="bar" style="height: 30%"></div>
+                                     <div class="bar" style="height: 60%"></div>
+                                     <div class="bar" style="height: 85%"></div>
+                                 </div>
+                             </div>
+                             <div class="radar-container">
+                                 <div class="radar-sweep"></div>
+                             </div>
+                         </div>
+                    </section>
+                </div>
+                
+                <!-- Spacer for scroll -->
+                <div style="height: 40px;"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quick Menu (Right UI Fix) -->
+    <div id="quick-menu" class="glass-panel skeu-edge drop-shadow">
+        <div class="quick-menu-header">
+            <h3>SYSTEM CONTROL</h3>
+            <button id="close-quick-menu" class="skeu-btn" aria-label="Close menu">✕</button>
+        </div>
+        <div class="quick-menu-body">
+            <div class="menu-item">
+                <span class="label">NOTIFICATIONS</span>
+                <span class="value text-cyan font-mono">0 NEW</span>
+            </div>
+            <div class="menu-item">
+                <span class="label">AUTO SYNC</span>
+                <div class="physical-switch mini-switch">
+                    <input type="checkbox" id="sync-switch" checked>
+                    <label for="sync-switch" class="switch-body"></label>
+                </div>
+            </div>
+            <div class="menu-item">
+                <span class="label">SECURE UPLINK</span>
+                <span class="status-dot pulsing-green"></span>
+            </div>
+            <hr class="menu-divider">
+            <button class="btn-primary skeu-btn full-width" id="btn-profile-access">ACCESS PROFILE</button>
+            <button class="btn-secondary skeu-btn full-width" style="margin-top: 10px;" id="btn-disconnect">DISCONNECT</button>
+        </div>
+    </div>
+
+    <!-- Modal System -->
+    <div id="modal-container" class="hidden">
+        <div class="modal-backdrop"></div>
+        <div class="glass-panel modal-content skeu-edge">
+            <button class="close-modal skeu-btn" aria-label="Close Modal">✕</button>
+            <div class="modal-header">
+                <span class="tag text-violet" id="modal-tag">OBSERVATION</span>
+                <h2 id="modal-title">UNKNOWN SIGNAL</h2>
+            </div>
+            <div class="modal-body">
+                <p>Data stream indicates anomalous fluctuations in the local field array. Further recalibration of the sensor network is highly recommended before proceeding with deep-dive analysis.</p>
+                <div class="font-mono data-block skeu-inset">
+                    > DATA INTEGRITY: 42%<br>
+                    > SOURCE: CLASSIFIED<br>
+                    > VECTOR: [ -12.4, 44.1, 9.8 ]
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary skeu-btn">INITIATE DEEP SCAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
